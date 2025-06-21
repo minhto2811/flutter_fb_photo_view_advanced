@@ -18,7 +18,7 @@ class FBPhotoView extends StatefulWidget {
     this.thumbnailSource,
     this.height,
     this.customSubChild,
-    this.displayType = FBPhotoViewType.list,
+    this.displayType = FBPhotoViewType.autoGrid,
     this.onPageChanged,
     this.onStartDisplay,
     this.fit = BoxFit.cover,
@@ -42,7 +42,7 @@ class FBPhotoView extends StatefulWidget {
       List<Widget>? customSubChild,
       Function(int)? onPageChanged}) {
     context.pushTransparentRoute(FBPhotoViewer(
-      intialIndex: displayIndex,
+      initialIndex: displayIndex,
       assets: dataSource,
       imageFile: fileImage,
       customSubChild: customSubChild,
@@ -69,6 +69,15 @@ class _FBPhotoViewState extends State<FBPhotoView> {
 
   @override
   Widget build(BuildContext context) {
+    if (displayType == FBPhotoViewType.autoGrid) {
+      if (dataSource.length <= 3) {
+        displayType = FBPhotoViewType.grid3;
+      } else if (dataSource.length <= 4) {
+        displayType = FBPhotoViewType.grid4;
+      } else {
+        displayType = FBPhotoViewType.grid5;
+      }
+    }
     switch (displayType) {
       case FBPhotoViewType.grid3:
         return grid3();
@@ -323,7 +332,7 @@ class _FBPhotoViewState extends State<FBPhotoView> {
           carouselController.animateToPage(_currentIndex);
         }
         context.pushTransparentRoute(FBPhotoViewer(
-          intialIndex: _currentIndex,
+          initialIndex: _currentIndex,
           assets: dataSource,
           customSubChild: widget.customSubChild,
           onPageChanged: (index) {

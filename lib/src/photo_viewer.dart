@@ -12,7 +12,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 class FBPhotoViewer extends StatefulWidget {
   const FBPhotoViewer({
     super.key,
-    this.intialIndex = 0,
+    this.initialIndex = 0,
     this.assets = const [],
     this.imageFile,
     this.onPageChanged,
@@ -21,7 +21,7 @@ class FBPhotoViewer extends StatefulWidget {
 
   final List<String> assets;
   final File? imageFile;
-  final int intialIndex;
+  final int initialIndex;
   final Function(int)? onPageChanged;
   final List<Widget>? customSubChild;
 
@@ -37,7 +37,7 @@ class _FBPhotoViewerState extends State<FBPhotoViewer> {
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: widget.intialIndex);
+    pageController = PageController(initialPage: widget.initialIndex);
   }
 
   @override
